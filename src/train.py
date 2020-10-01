@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 import matplotlib.pylab as plt
 from sklearn.model_selection import train_test_split
 
@@ -35,11 +36,11 @@ def df_to_dataset(dataframe, shuffle=True, batch_size=32):
     labels = dataframe.pop('TARGET')
     ds = tf.data.Dataset.from_tensor_slices((dict(dataframe), labels))
     if shuffle:
-    ds = ds.shuffle(buffer_size=len(dataframe))
+        ds = ds.shuffle(buffer_size=len(dataframe))
     ds = ds.batch(batch_size)
     return ds
 
-def set_feature_columns(cont_feat_lookup, cat_feat_lookup):
+def set_feature_columns(cont_feat_lookup, cat_feat_lookup, train_df):
     feature_columns = []
 
     # add numeric columns
@@ -141,7 +142,7 @@ def main():
     val_ds = df_to_dataset(val, batch_size=BATCH_SIZE)
     test_ds = df_to_dataset(test, batch_size=BATCH_SIZE)
 
-    feature_columns = set_feature_columns(cont_feat_lookup, cat_feat_lookup)
+    feature_columns = set_feature_columns(cont_feat_lookup, cat_feat_lookup, train)
 
     model = create_model(feature_columns)
 
@@ -156,7 +157,7 @@ def main():
                         tf.keras.metrics.AUC(name='auc')
                         ])
 
-    
+
 
     ## set checkpoints
     checkpoint_path = './models/checkpoints/cp.ckpt'

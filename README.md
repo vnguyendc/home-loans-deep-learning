@@ -11,4 +11,15 @@ Download from Kaggle the Home Loans Default Risk dataset
 ! kaggle competitions download -c home-credit-default-risk -p data/kaggle
 ```
 
+## Pre-processing
+
+run:
+`python src/process_data.py`
+
+## Training
+run:
+`python src/train.py`
+
+Model will be saved in `models` directory.
+
 **IN PROGRESS**
