@@ -156,7 +156,7 @@ def main():
                         tf.keras.metrics.AUC(name='auc')
                         ])
 
-    print(model.summary())
+    
 
     ## set checkpoints
     checkpoint_path = './models/checkpoints/cp.ckpt'
@@ -171,6 +171,8 @@ def main():
             validation_data=val_ds,
             callbacks=[cp_callback, early_stop],
             epochs=N_EPOCHS)
+
+    print(model.summary())
 
     plot_metrics(history)
 
