@@ -1,4 +1,5 @@
 # home-loans-deep-learning
+Author: Vinh Nguyen
 
 ## Getting source data
 
